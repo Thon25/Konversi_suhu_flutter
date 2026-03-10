@@ -9,36 +9,37 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Konversi Suhu',
-      home: KonversiSuhu(),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: KonversiPage(),
     );
   }
 }
 
-class KonversiSuhu extends StatefulWidget {
+class KonversiPage extends StatefulWidget {
   @override
-  _KonversiSuhuState createState() => _KonversiSuhuState();
+  _KonversiPageState createState() => _KonversiPageState();
 }
 
-class _KonversiSuhuState extends State<KonversiSuhu> {
+class _KonversiPageState extends State<KonversiPage> {
 
   TextEditingController inputController = TextEditingController();
+
   String hasil = "";
 
-  void celsiusKeFahrenheit() {
-    double c = double.parse(inputController.text);
-    double f = (c * 9 / 5) + 32;
+  void konversiSuhu() {
+    double celsius = double.parse(inputController.text);
+
+    double fahrenheit = (celsius * 9 / 5) + 32;
+    double kelvin = celsius + 273.15;
+    double reamur = celsius * 4 / 5;
 
     setState(() {
-      hasil = "$c °C = ${f.toStringAsFixed(2)} °F";
-    });
-  }
-
-  void fahrenheitKeCelsius() {
-    double f = double.parse(inputController.text);
-    double c = (f - 32) * 5 / 9;
-
-    setState(() {
-      hasil = "$f °F = ${c.toStringAsFixed(2)} °C";
+      hasil =
+          "Fahrenheit : ${fahrenheit.toStringAsFixed(2)}\n"
+          "Kelvin : ${kelvin.toStringAsFixed(2)}\n"
+          "Reamur : ${reamur.toStringAsFixed(2)}";
     });
   }
 
@@ -57,35 +58,23 @@ class _KonversiSuhuState extends State<KonversiSuhu> {
               controller: inputController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                labelText: "Masukkan Suhu",
+                labelText: "Masukkan Suhu Celsius",
                 border: OutlineInputBorder(),
               ),
             ),
 
             SizedBox(height: 20),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-
-                ElevatedButton(
-                  onPressed: celsiusKeFahrenheit,
-                  child: Text("C → F"),
-                ),
-
-                ElevatedButton(
-                  onPressed: fahrenheitKeCelsius,
-                  child: Text("F → C"),
-                ),
-
-              ],
+            ElevatedButton(
+              onPressed: konversiSuhu,
+              child: Text("Konversi"),
             ),
 
             SizedBox(height: 20),
 
             Text(
               hasil,
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 18),
             )
 
           ],
