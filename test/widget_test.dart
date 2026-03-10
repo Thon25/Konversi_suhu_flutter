@@ -13,7 +13,11 @@ import 'package:konversi_suhu/main.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
+<<<<<<< HEAD
     await tester.pumpWidget(const MyApp());
+=======
+    await tester.pumpWidget(MyApp());
+>>>>>>> e5702aa4615fa86251a42e6c3cea1edfe0daa9f4
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
